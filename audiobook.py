@@ -16,8 +16,8 @@ class PipeStep:
 
 steps = [
     # PipeStep("document-to-html", ["document"]),
-    PipeStep("html-to-text", ["document"]),
-    PipeStep("text-to-speech", ["document"])
+    # PipeStep("html-to-text", ["document"]),
+    PipeStep("text-to-speech", ["document", "model"])
 ]
 
 def check():
@@ -47,16 +47,17 @@ def run(args):
     log.debug("-"*50)
     check()
     log.debug("-"*50)
-    if not args.document:
-        log.debug("!!! document  argument required")
-        return
     for step in steps:
         log.debug("-"*50)
         log.debug("-"*10+f" STEP {step.name} "+"-"*10)
         log.debug("-"*50)
         cmd_args = ""
         for name in step.arg_names:
-            cmd_args += getattr(args, name)
+            arg = getattr(args, name)
+            if not arg:
+                log.debug(f"!!! failed step {step.name} argument '{name}' required but not provided")
+                sys.exit(0)
+            cmd_args += f"{arg} "
         p = os.popen(f"pipe/{step.name}/.venv/bin/python pipe/{step.name}/pipe.py {cmd_args}")
         result = p.read()
         exit_code = p.close()
@@ -73,6 +74,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", "-ch", type=bool, default=False, action=argparse.BooleanOptionalAction)
     parser.add_argument("--document", "-d", required=False, default="")
+    parser.add_argument("--model", "-m", required=False, default="", help="example model: tts_models/en/ljspeech/vits")
     args = parser.parse_args()
     if args.check:
         check()

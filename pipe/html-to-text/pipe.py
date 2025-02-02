@@ -41,6 +41,7 @@ def cleanup(input_dir, output_dir):
         if os.path.exists(txt_fname):
             log.debug(f"skipping {output_dir}/{txt_fname}")
             continue
+        log.debug(f'saving {output_dir}/{txt_fname}')
         with open(txt_fname, 'wb+') as f:
             f.write(text)
 

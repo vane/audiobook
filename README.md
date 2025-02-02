@@ -1,7 +1,6 @@
 # audiobook
 
-### convert document to audiobook
-
+### convert pdf document to audiobook
 
 ### install
 
@@ -17,4 +16,27 @@
 
 ### run
 
-Assuming that you managed to install everything run 
+Assuming that you managed to install everything, run with command line
+
+```shell
+python3 -m audiobook -d /path/to/some_pdf.pdf -m tts_models/en/ljspeech/vits
+```
+
+Help
+
+```shell
+python3 -m audiobook -h
+```
+
+tested models
+```shell
+tts_models/en/ljspeech/vits
+tts_models/pl/mai_female/vits
+```
+
+### TODO
+
+1. list models from TTS on command line
+2. provide steps as command line args
+3. test with other types than pdf
+4. support document ocr
