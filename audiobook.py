@@ -3,7 +3,7 @@
 import logging
 import argparse
 import os
-import shlex
+import sys
 
 log = logging.getLogger("audiobook")
 
@@ -16,7 +16,7 @@ class PipeStep:
 
 steps = [
     # PipeStep("document-to-html", ["document"]),
-    PipeStep("html-cleanup", ["document"]),
+    PipeStep("html-to-text", ["document"]),
     PipeStep("text-to-speech", ["document"])
 ]
 
@@ -24,6 +24,9 @@ def check():
     is_ok = True
     log.debug("checking pipe python versions")
     for step in steps:
+        if not os.path.exists(f"pipe/{step.name}"):
+            log.debug(f"!!! failed step '{step.name}' not exists")
+            sys.exit(0)
         python_installed = os.popen(f"pipe/{step.name}/.venv/bin/python --version").read()
         python_installed = python_installed.split(" ")[1].strip()
         with open(f"pipe/{step.name}/.python-version") as f:
