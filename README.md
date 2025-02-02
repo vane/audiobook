@@ -1,8 +1,10 @@
 # audiobook
+convert pdf document to audiobook
 
-### convert pdf document to audiobook
+## Description
+convert pdf document to audiobook
 
-### install
+## Install
 
 1. go to each directory inside pipe
 2. create `.venv` with python version from `.python-version`
@@ -14,7 +16,7 @@
    6. run `deactivate` and go to next `pipe` directory
 3. after each pipe environment is installed run `python -m audiobook validate` to check if everything is correct
 
-### run
+## Run
 
 Assuming that you managed to install everything, run with command line
 
@@ -34,10 +36,19 @@ tts_models/en/ljspeech/vits
 tts_models/pl/mai_female/vits
 ```
 
-### TODO
+## TODO
 
 1. list models from TTS on command line
 2. provide steps as command line args
 3. test with other types than pdf
 4. support document ocr
 5. fix text-to-speech pipe logging
+
+## Benchmark
+on rtx3090 with power limit 250W (book with 357 pages)
+```shell
+time python -m audiobook -d boska-komedia.pdf -m tts_models/pl/mai_female/vits
+real    8m38.380s
+user    11m40.027s
+sys     0m21.981s
+```
