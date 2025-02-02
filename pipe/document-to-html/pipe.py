@@ -35,9 +35,13 @@ def run(doc_path: str):
         sys.exit(os.EX_DATAERR)
     output_dir = prepare_output_dir(doc_path)
     convert(doc_path, output_dir)
-    sys.exit(os.EX_OK)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
     log.debug(f"document-to-html {sys.argv}")
-    run(sys.argv[1])
+    try:
+        run(sys.argv[1])
+        sys.exit(os.EX_OK)
+    except Exception as e:
+        log.error("error", e)
+        sys.exit(os.EX_IOERR)

@@ -4,14 +4,22 @@ import logging
 import os.path
 import sys
 
+class Config:
+    output_dir = "data"
+
 log = logging.getLogger("text-to-speech")
 
 def run(document: str):
     if not os.path.exists(document):
-        print(f"!!! document {document} not exists")
+        log.debug(f"!!! document {document} not exists")
         sys.exit(os.EX_DATAERR)
-    sys.exit(os.EX_OK)
 
 if __name__ == '__main__':
-    print("text-to-speech", sys.argv)
-    run(sys.argv[1])
+    logging.basicConfig(level=logging.DEBUG)
+    log.debug(f"text-to-speech {sys.argv}")
+    try:
+        run(sys.argv[1])
+        sys.exit(os.EX_OK)
+    except Exception as e:
+        log.error("error", e)
+        sys.exit(os.EX_IOERR)

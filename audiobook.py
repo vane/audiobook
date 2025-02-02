@@ -15,7 +15,7 @@ class PipeStep:
 
 
 steps = [
-    PipeStep("document-to-html", ["document"]),
+    # PipeStep("document-to-html", ["document"]),
     PipeStep("html-cleanup", ["document"]),
     PipeStep("text-to-speech", ["document"])
 ]
@@ -25,7 +25,7 @@ def check():
     log.debug("checking pipe python versions")
     for step in steps:
         python_installed = os.popen(f"pipe/{step.name}/.venv/bin/python --version").read()
-        python_installed = python_installed.split(' ')[1].strip()
+        python_installed = python_installed.split(" ")[1].strip()
         with open(f"pipe/{step.name}/.python-version") as f:
             python_required = f.read().strip()
         if python_installed != python_required:
@@ -57,8 +57,9 @@ def run(args):
         p = os.popen(f"pipe/{step.name}/.venv/bin/python pipe/{step.name}/pipe.py {cmd_args}")
         result = p.read()
         exit_code = p.close()
+        log.debug(f"exit code '{exit_code}'")
         if exit_code is not None:
-            log.debug(result)
+            log.debug(f"result: {result}")
             log.debug(f"!!! failed step '{step.name}'")
             return
         log.debug(result)
