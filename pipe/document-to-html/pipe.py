@@ -14,7 +14,7 @@ log = logging.getLogger("document-to-html")
 def prepare_output_dir(doc_path: str):
     document_name = doc_path.split(os.sep)[-1]
 
-    safe_fname = re.sub('\W+',' ', document_name)
+    safe_fname = re.sub('[^a-zA-Z0-9]',' ', document_name)
     log.debug(safe_fname)
     safe_fname = '_'.join(safe_fname.split(' '))
 
