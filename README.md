@@ -40,3 +40,4 @@ tts_models/pl/mai_female/vits
 2. provide steps as command line args
 3. test with other types than pdf
 4. support document ocr
+5. fix text-to-speech pipe logging
