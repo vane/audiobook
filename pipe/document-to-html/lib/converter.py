@@ -45,24 +45,20 @@ def convert_pdfium(fpath):
     result = doc_converter.convert(fpath)
     return  result
 
-def convert(base, path, fname):
-    fpath = os.path.join(base, path, fname)
-    if not os.path.exists(fpath):
-        return f'not exists {path}/{fname}'
-
+def convert(fpath, output_dir):
+    log.debug("converting")
     result = convert_pdfium(fpath)
-
-    safe_fname = re.sub('\W+',' ', fname)
-    safe_fname = '_'.join(safe_fname.split(' '))
-    converted_path = os.path.join(base, path, safe_fname)
-    os.makedirs(converted_path, exist_ok=True)
-    os.makedirs(os.path.join(converted_path, 'html'), exist_ok=True)
 
     for i, page in enumerate(result.pages):
         html = result.document.export_to_html(page_no=i)
         html_fname = f'{i}'.rjust(6, '0') + '.html'
-        log.debug(f'saving {path}/{safe_fname}/html/{html_fname}')
-        with open(os.path.join(converted_path, 'html', html_fname), 'wb+') as f:
-            f.write(html.encode('utf8'))
+        html_path = os.path.join(output_dir, html_fname)
 
-    return f'{path}/{safe_fname}'
+        if os.path.exists(html_path):
+            log.debug(f"skipping {output_dir}/{html_fname}")
+            continue
+
+        log.debug(f'saving {output_dir}/{html_fname}')
+        with open(html_path, 'wb+') as f:
+            f.write(html.encode('utf8'))
+    log.debug("convert ok")
