@@ -15,8 +15,8 @@ class PipeStep:
 
 
 steps = [
-    # PipeStep("document-to-html", ["document"]),
-    # PipeStep("html-to-text", ["document"]),
+    PipeStep("document-to-html", ["document"]),
+    PipeStep("html-to-text", ["document"]),
     PipeStep("text-to-speech", ["document", "model"])
 ]
 
