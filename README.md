@@ -2,7 +2,11 @@
 convert pdf document to audiobook
 
 ## Description
-convert pdf document to audiobook
+Convert pdf document to audiobook.  
+
+[docling](https://github.com/DS4SD/docling) - for pdf to html conversion  
+[beautifulsoup4](https://www.crummy.com/software/BeautifulSoup/) - for html cleanup    
+[coqui-ai/TTS](https://github.com/coqui-ai/TTS) - for TTS
 
 ## Install
 
@@ -42,7 +46,8 @@ tts_models/pl/mai_female/vits
 2. provide steps as command line args
 3. test with other types than pdf
 4. support document ocr
-5. fix text-to-speech pipe logging
+5. support for coqui-ai/TTS multilingual models
+6. fix text-to-speech pipe logging
 
 ## Benchmark
 on rtx3090 with power limit 250W (book with 357 pages)
