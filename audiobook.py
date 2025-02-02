@@ -62,8 +62,8 @@ def run(args):
             if not arg:
                 log.debug(f"!!! failed step {step.name} argument '{name}' required but not provided")
                 sys.exit(0)
-            cmd_args += f"{arg} "
-        p = os.popen(f"pipe/{step.name}/.venv/bin/python pipe/{step.name}/pipe.py {shlex.quote(cmd_args.strip())}")
+            cmd_args += f"{shlex.quote(arg)} "
+        p = os.popen(f"pipe/{step.name}/.venv/bin/python pipe/{step.name}/pipe.py {cmd_args}")
         result = p.read()
         exit_code = p.close()
         log.debug(f"exit code '{exit_code}'")
