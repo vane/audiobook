@@ -31,7 +31,11 @@ def check():
         python_installed = python_installed.split(" ")[1].strip()
         with open(f"pipe/{step.name}/.python-version") as f:
             python_required = f.read().strip()
-        if python_installed != python_required:
+
+        python_installed_minor = '.'.join(python_installed.split('.')[:-1])
+        python_required_minor = '.'.join(python_installed.split('.')[:-1])
+
+        if python_installed_minor != python_required_minor:
             log.debug(f"wrong python version for step '{step.name}' required '{python_required}' installed '{python_installed}'")
             is_ok = False
         else:
