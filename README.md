@@ -20,6 +20,21 @@ Convert pdf document to audiobook.
    6. run `deactivate` and go to next `pipe` directory
 3. after each pipe environment is installed run `python -m audiobook validate` to check if everything is correct
 
+
+after correct installation `pipe` directory structure should look like that
+```shell
+pipe/
+   document-to-html/
+      .venv/ (python 3.13)
+      ...
+   html-to-text/
+      .venv/ (python 3.13)
+      ...
+   text-to-speech
+      .venv/ (python 3.11)
+      ...
+```
+
 ## Run
 
 Assuming that you managed to install everything, run with command line
