@@ -4,6 +4,7 @@ import logging
 import argparse
 import os
 import sys
+import shlex
 
 log = logging.getLogger("audiobook")
 
@@ -62,7 +63,7 @@ def run(args):
                 log.debug(f"!!! failed step {step.name} argument '{name}' required but not provided")
                 sys.exit(0)
             cmd_args += f"{arg} "
-        p = os.popen(f"pipe/{step.name}/.venv/bin/python pipe/{step.name}/pipe.py {cmd_args}")
+        p = os.popen(f"pipe/{step.name}/.venv/bin/python pipe/{step.name}/pipe.py {shlex.quote(cmd_args.strip())}")
         result = p.read()
         exit_code = p.close()
         log.debug(f"exit code '{exit_code}'")
