@@ -2,7 +2,21 @@
 convert pdf document to audiobook
 
 ## Description
-Convert pdf document to audiobook.  
+This is proof of concept ML pipe to convert books to audiobooks using couple of incompatible libraries.   
+Tested on `Divine Comedy` polish `pdf` 357 pages
+from [wolnelektury.pl](https://wolnelektury.pl/katalog/lektura/boska-komedia/) see [benchmark](https://github.com/vane/audiobook#Benchmark) 
+
+Each page is separate file.   
+Each pipe produces it's own output that can be adjusted.  
+Exising files are skipped from output.
+
+For example if you convert from `pdf` to `html` using `document-to-html` pipe 
+and then from `html` to `txt` using `html-to-text` pipe and after that 
+delete `wav` directory or files from `wav` directory that are invalid.
+You can adjust `txt` files to make better audio output for `wav` files.  
+Be aware that file names should always stay the same !
+
+Files are numerated with page numbers from original document.
 
 [docling](https://github.com/DS4SD/docling) - for pdf to html conversion  
 [beautifulsoup4](https://www.crummy.com/software/BeautifulSoup/) - for html cleanup    
